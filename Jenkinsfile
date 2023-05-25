@@ -5,7 +5,7 @@ pipeline {
 
     stage('Git') {
       steps {
-       git branch: 'dev', credentialsId: 'aequitas', url: 'https://samraghull@bitbucket.org/coherentdev/aequitas_tracking-portal.git'
+       git branch: 'main', credentialsId: 'aequitas', url: 'https://samraghull@bitbucket.org/coherentdev/aequitas_tracking-portal.git'
 
       }
     }
