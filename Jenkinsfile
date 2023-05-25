@@ -5,7 +5,7 @@ pipeline {
 
     stage('Git') {
       steps {
-       git branch: 'main', credentialsId: 'aequitas', url: 'https://github.com/praveenRajJothibasu/AngularGettingStarted.git'
+       git branch: 'main', url: 'https://github.com/praveenRajJothibasu/AngularGettingStarted.git'
 
       }
     }
