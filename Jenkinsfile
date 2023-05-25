@@ -13,9 +13,7 @@ pipeline {
     stage('installation') {
       steps {
         sh 'ls'
-        sh 'npm i'
-        sh 'npm install angular2-chartjs@0.5.1'
-        sh 'npm install chart.js@4.2.1'
+        sh 'npm i --force'
       }
     }
     stage('build') {
