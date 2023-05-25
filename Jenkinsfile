@@ -23,7 +23,13 @@ pipeline {
 
     stage('Port Cleaning') {
   steps {
-    bat 'taskkill /F /FI "PID in (netstat -ano | findstr :4000)"'
+    bat '''
+    for /F "tokens=5" %%P in ('netstat -ano ^| findstr :4000') do (
+      tasklist /FI "PID eq %%P" | findstr "node.exe" && (
+        taskkill /F /PID %%P
+      )
+    )
+    '''
   }
 }
 
