@@ -2,39 +2,35 @@ pipeline {
   agent any
 
   stages {
-
     stage('Git') {
       steps {
-       git branch: 'main', url: 'https://github.com/praveenRajJothibasu/AngularGettingStarted.git'
-
+        git branch: 'main', url: 'https://github.com/praveenRajJothibasu/AngularGettingStarted.git'
       }
     }
 
-    stage('installation') {
+    stage('Installation') {
       steps {
-        sh 'ls'
-        sh 'npm i --force'
+        bat 'npm i --force'
       }
     }
-    stage('build') {
+
+    stage('Build') {
       steps {
-        sh 'npm run build'
-        sh 'ls'
+        bat 'npm run build'
+        bat 'dir' // Use 'dir' command instead of 'ls' for Windows
       }
     }
-    
-    stage('port cleaning') {
+
+    stage('Port Cleaning') {
       steps {
-        sh 'kill -9 $(lsof -t -i:4000) || true'
+        bat 'taskkill /F /IM node.exe /T' // Kill all Node.js processes
       }
     }
-     
-     stage('Deploying') {
+
+    stage('Deployment') {
       steps {
-          sh 'rm -rf /var/www/html/*'
-          sh 'cp -R ./dist/* /var/www/html'
+        bat 'xcopy /s /y .\\dist\\* C:\\var\\www\\html' // Copy files to the destination folder
       }
     }
   }
 }
-
