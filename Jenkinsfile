@@ -22,15 +22,18 @@ pipeline {
     }
 
     stage('Port Cleaning') {
-      steps {
-        bat 'taskkill /F /IM node.exe /T' // Kill all Node.js processes
-      }
-    }
+  steps {
+    bat 'taskkill /F /FI "PID in (netstat -ano | findstr :4000)"'
+  }
+}
 
-    stage('Deployment') {
-      steps {
-        bat 'xcopy /s /y .\\dist\\* C:\\var\\www\\html' // Copy files to the destination folder
-      }
-    }
+
+    stage('Deploying') {
+  steps {
+    bat 'rmdir /s /q C:\\var\\www\\html\\*'
+    bat 'xcopy /E /I .\\dist\\* C:\\var\\www\\html\\'
+  }
+}
+
   }
 }
