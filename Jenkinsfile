@@ -21,17 +21,18 @@ pipeline {
       }
     }
 
-    stage('Port Cleaning') {
-      steps {
-        bat '''
-        for /F "tokens=5" %%P in ('netstat -ano ^| findstr :4000') do (
-          wmic process where "ProcessId=%%P" get ExecutablePath | findstr "node.exe" && (
-            wmic process where "ProcessId=%%P" call Terminate
-          )
-        )
-        '''
-      }
-    }
+   stage('Port Cleaning') {
+  steps {
+    bat '''
+    for /F "tokens=5" %%P in ('netstat -ano ^| findstr :4000') do (
+      wmic process where "ProcessId=%%P" get ExecutablePath | findstr "node.exe" && (
+        wmic process where "ProcessId=%%P" call Terminate
+      )
+    )
+    '''
+  }
+}
+
 
     stage('Deploying') {
   steps {
